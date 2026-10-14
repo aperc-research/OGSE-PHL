@@ -113,14 +113,6 @@ The production build of the platform is hosted on GitHub Pages:
 .
 ├── index.html                                  # Standalone production application (served via GitHub Pages)
 ├── README.md                                   # Comprehensive technical and project documentation
-├── LICENSE                                     # Standard MIT open-source licence
-├── .gitignore                                  # Windows, macOS, and IDE temporary file exclusions
-└── 2026.09.10 - PHL/
-    ├── map_refinery_and_stocks_index.html      # Master source file of the integrated interactive platform
-    ├── typhoons.html                           # Standalone module: Historical typhoon trajectories
-    ├── example.html                            # Standalone module: Baseline petroleum infrastructure
-    ├── contexto_datos_tablas_filipinas.md      # Comprehensive technical context, statistics, and balances
-    └── instrucciones_construccion_minisitio.md # Original engineering directives and development specification
 ```
 
 ---
@@ -138,50 +130,7 @@ Due to the zero-dependency architecture, running the application locally require
 
 ---
 
-## 🌐 Publishing to GitHub Pages
 
-Follow this procedure to deploy the site publicly using GitHub Pages:
-
-### Step 1: Initialise and Push to GitHub
-Open your terminal (PowerShell or Bash) in the project root directory and execute:
-
-```bash
-# Initialise the local Git repository
-git init
-
-# Stage all files for tracking
-git add .
-
-# Create the initial baseline commit
-git commit -m "feat: initialise Philippines downstream petroleum infrastructure and typhoon risk platform"
-
-# Designate main as the default branch
-git branch -M main
-
-# Link your local repository to your remote GitHub repository
-git remote add origin https://github.com/<YOUR-GITHUB-USERNAME>/<YOUR-REPOSITORY-NAME>.git
-
-# Push changes to GitHub
-git push -u origin main
-```
-
-### Step 2: Configure GitHub Pages
-1. Navigate to your repository in your browser on [GitHub](https://github.com).
-2. Click the **Settings** tab located on the top navigation bar.
-3. In the left-hand navigation sidebar under **Code and automation**, select **Pages**.
-4. Under the **Build and deployment** section:
-   - **Source:** Select `Deploy from a branch`.
-   - **Branch:** Select `main` from the dropdown list.
-   - **Folder:** Confirm `/ (root)` is selected.
-5. Click **Save**.
-
-### Step 3: Access the Live Deployment
-1. Allow approximately **60 to 120 seconds** for GitHub's automated build and publishing workflow to finalise.
-2. Refresh the **Settings > Pages** panel. A notification badge will display:
-   > *"Your site is live at `https://<YOUR-GITHUB-USERNAME>.github.io/<YOUR-REPOSITORY-NAME>/`"*
-3. Click the provided URL to access the deployed, live interactive platform.
-
----
 
 ## 📚 Data Attributions & Acknowledgements
 
