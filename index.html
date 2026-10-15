@@ -12,12 +12,16 @@
     :root {
       --bg-dark: #0b0f14;
       --panel-bg: #121820;
+      --panel-header-bg: #0f151e;
       --card-bg: #1a222d;
       --card-hover: #222d3d;
       --card-active: #1e3a5f;
+      --sub-box-bg: #0c1117;
+      --sub-box-alt: #090d12;
       --border-color: #273546;
       --border-light: #37475c;
       --text-main: #f1f5f9;
+      --text-bright: #ffffff;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       --color-refinery: #00E676;
@@ -25,7 +29,37 @@
       --color-depot: #2979FF;
       --accent-cyan: #38bdf8;
       --accent-rose: #fb7185;
+      --overlay-bg: rgba(18, 24, 32, 0.94);
+      --popup-bg: #141c26;
+      --btn-bg: #1e293b;
+      --btn-hover: #283548;
+      --map-bg: #080c10;
       --shadow-elevation: 0 10px 30px -5px rgba(0, 0, 0, 0.65);
+    }
+
+    body.light-mode {
+      --bg-dark: #f1f5f9;
+      --panel-bg: #ffffff;
+      --panel-header-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-hover: #f1f5f9;
+      --card-active: #e0f2fe;
+      --sub-box-bg: #f1f5f9;
+      --sub-box-alt: #f8fafc;
+      --border-color: #cbd5e1;
+      --border-light: #94a3b8;
+      --text-main: #0f172a;
+      --text-bright: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --accent-cyan: #0284c7;
+      --accent-rose: #e11d48;
+      --overlay-bg: rgba(255, 255, 255, 0.94);
+      --popup-bg: #ffffff;
+      --btn-bg: #f1f5f9;
+      --btn-hover: #e2e8f0;
+      --map-bg: #e2e8f0;
+      --shadow-elevation: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
     }
 
     * {
@@ -43,6 +77,7 @@
       height: 100vh;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     /* Top Executive Header */
@@ -54,7 +89,9 @@
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .header-brand {
@@ -76,15 +113,15 @@
     }
 
     .header-title-block h1 {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-bright);
       letter-spacing: 0.3px;
       line-height: 1.25;
     }
 
     .header-title-block p {
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       margin-top: 1px;
     }
@@ -92,7 +129,8 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      flex-wrap: wrap;
     }
 
     .stat-pill {
@@ -100,7 +138,7 @@
       border: 1px solid rgba(41, 121, 255, 0.3);
       padding: 6px 11px;
       border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 600;
       color: var(--accent-cyan);
       display: flex;
@@ -110,20 +148,20 @@
     }
 
     .stat-pill strong {
-      color: #ffffff;
+      color: var(--text-bright);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 6px 11px;
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--border-light);
-      background: #1e293b;
+      background: var(--btn-bg);
       color: var(--text-main);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       outline: none;
@@ -131,8 +169,8 @@
     }
 
     .btn:hover {
-      background: #283548;
-      border-color: #4b5f7a;
+      background: var(--btn-hover);
+      border-color: var(--accent-cyan);
       transform: translateY(-1px);
     }
 
@@ -140,14 +178,20 @@
       transform: translateY(0);
     }
 
+    .btn-scale.active {
+      background: rgba(2, 132, 199, 0.18);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
     .btn-typhoon {
-      background: #331520;
+      background: rgba(190, 18, 60, 0.12);
       border-color: #be123c;
-      color: #fda4af;
+      color: var(--accent-rose);
     }
 
     .btn-typhoon:hover {
-      background: #4c1d2e;
+      background: #881337;
       border-color: #fb7185;
       color: #ffffff;
     }
@@ -156,49 +200,31 @@
       background: #881337;
       border-color: #f43f5e;
       color: #ffffff;
-      box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+      box-shadow: 0 0 10px rgba(244, 63, 94, 0.35);
     }
 
     .btn-context {
-      background: #11263c;
+      background: rgba(2, 132, 199, 0.12);
       border-color: #0284c7;
-      color: #7dd3fc;
+      color: var(--accent-cyan);
     }
 
     .btn-context:hover {
-      background: #0c4a6e;
+      background: #0284c7;
       border-color: #38bdf8;
       color: #ffffff;
     }
 
     .btn-lasso {
-      background: #1e293b;
-      border-color: #38bdf8;
-      color: #38bdf8;
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
     }
 
-    .btn-lasso:hover {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #38bdf8;
-    }
-
+    .btn-lasso:hover,
     .btn-lasso.active {
       background: #0284c7;
       color: #ffffff;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-
-    .btn-export {
-      background: #064e3b;
-      border-color: #059669;
-      color: #6ee7b7;
-    }
-
-    .btn-export:hover {
-      background: #047857;
-      color: #ffffff;
-      border-color: #10b981;
+      border-color: #38bdf8;
     }
 
     /* Main Split Screen */
@@ -214,34 +240,60 @@
       flex: 1;
       position: relative;
       height: 100%;
-      background: #06090e;
+      background: var(--map-bg);
     }
 
     #map {
       width: 100%;
       height: 100%;
-      background: #080c10;
+      background: var(--map-bg);
     }
 
-    /* Presentation Header for Exported Maps */
+    /* Floating Sidebar Collapse Tab on Map Edge */
+    .sidebar-edge-toggle {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 950;
+      background: var(--overlay-bg);
+      border: 1px solid var(--border-color);
+      border-right: none;
+      color: var(--text-main);
+      padding: 10px 6px;
+      border-radius: 6px 0 0 6px;
+      cursor: pointer;
+      box-shadow: -3px 0 12px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sidebar-edge-toggle:hover {
+      background: var(--card-hover);
+      color: var(--accent-cyan);
+    }
+
+    /* Presentation Header Banner */
     .map-title-banner {
       position: absolute;
       top: 14px;
       left: 60px;
-      background: rgba(18, 24, 32, 0.94);
+      background: var(--overlay-bg);
       backdrop-filter: blur(8px);
       padding: 8px 16px;
       border-radius: 6px;
       border: 1px solid var(--border-color);
       z-index: 800;
       pointer-events: none;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--shadow-elevation);
     }
 
     .map-title-banner h2 {
       font-size: 0.88rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-bright);
       letter-spacing: 0.2px;
     }
 
@@ -256,7 +308,7 @@
       position: absolute;
       bottom: 24px;
       left: 20px;
-      background: rgba(18, 24, 32, 0.96);
+      background: var(--overlay-bg);
       backdrop-filter: blur(12px);
       border: 1px solid #0284c7;
       border-radius: 10px;
@@ -265,7 +317,7 @@
       max-height: 80vh;
       overflow-y: auto;
       z-index: 900;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
+      box-shadow: var(--shadow-elevation);
       display: none;
       animation: fadeIn 0.25s ease-out forwards;
       scrollbar-width: thin;
@@ -282,22 +334,22 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 6px;
     }
 
     .analytics-header h3 {
       font-size: 0.82rem;
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--accent-cyan);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .btn-reset-selection {
-      background: #334155;
-      border: none;
-      color: #cbd5e1;
+      background: var(--btn-bg);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
       padding: 3px 8px;
       border-radius: 4px;
       font-size: 0.68rem;
@@ -308,6 +360,7 @@
 
     .btn-reset-selection:hover {
       background: #dc2626;
+      border-color: #dc2626;
       color: #ffffff;
     }
 
@@ -318,7 +371,7 @@
     .metric-value {
       font-size: 1.4rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-bright);
       line-height: 1.1;
     }
 
@@ -342,7 +395,7 @@
     }
 
     .breakdown-badge {
-      background: #090d12;
+      background: var(--sub-box-alt);
       padding: 6px;
       border-radius: 5px;
       border: 1px solid var(--border-color);
@@ -360,12 +413,12 @@
     .breakdown-badge span:last-child {
       font-size: 0.95rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-bright);
     }
 
     /* Lasso Regional Fuel Breakdown */
     .lasso-fuel-section {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-color);
       padding-top: 8px;
       margin-top: 4px;
     }
@@ -375,7 +428,7 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #94a3b8;
+      color: var(--text-muted);
       margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
@@ -391,18 +444,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0b1016;
+      background: var(--sub-box-bg);
       padding: 4px 7px;
       border-radius: 4px;
       font-size: 0.68rem;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
     }
 
     .lasso-fuel-name {
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #f1f5f9;
+      color: var(--text-main);
       font-weight: 500;
     }
 
@@ -421,22 +474,33 @@
       margin-left: 4px;
     }
 
-    /* Sidebar Hierarchy */
+    /* Sidebar Hierarchy & Collapsible State */
     .sidebar {
       width: 420px;
+      min-width: 420px;
       background-color: var(--panel-bg);
       border-left: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
       height: 100%;
       z-index: 1000;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      min-width: 0;
+      border-left: none;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .sidebar-header {
       padding: 12px 16px;
       border-bottom: 1px solid var(--border-color);
-      background-color: #0f151e;
+      background-color: var(--panel-header-bg);
     }
 
     .sidebar-title-row {
@@ -449,7 +513,7 @@
     .sidebar-title-row h2 {
       font-size: 0.90rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-bright);
       letter-spacing: 0.2px;
     }
 
@@ -470,18 +534,18 @@
 
     .search-bar {
       width: 100%;
-      background: #090d12;
+      background: var(--sub-box-alt);
       border: 1px solid var(--border-color);
       padding: 7px 10px 7px 32px;
       border-radius: 6px;
-      color: #ffffff;
+      color: var(--text-bright);
       font-size: 0.76rem;
       outline: none;
       transition: border-color 0.2s;
     }
 
     .search-bar:focus {
-      border-color: #38bdf8;
+      border-color: var(--accent-cyan);
       box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
     }
 
@@ -504,7 +568,7 @@
 
     .filter-btn {
       padding: 6px 4px;
-      background: #090d12;
+      background: var(--sub-box-alt);
       border: 1px solid var(--border-color);
       border-radius: 5px;
       color: var(--text-muted);
@@ -517,8 +581,8 @@
     }
 
     .filter-btn:hover {
-      background: #1a2330;
-      color: #ffffff;
+      background: var(--card-hover);
+      color: var(--text-bright);
       border-color: var(--border-light);
     }
 
@@ -563,14 +627,14 @@
 
     .facility-card:hover {
       background: var(--card-hover);
-      border-color: #38bdf8;
+      border-color: var(--accent-cyan);
       transform: translateX(-2px);
     }
 
     .facility-card.selected {
       background: var(--card-active);
-      border-color: #38bdf8;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
     }
 
     .facility-card.dimmed {
@@ -596,11 +660,11 @@
     .rank-badge {
       font-size: 0.65rem;
       font-weight: 800;
-      color: #94a3b8;
-      background: #0d131a;
+      color: var(--text-muted);
+      background: var(--sub-box-alt);
       padding: 2px 5px;
       border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
       white-space: nowrap;
       margin-top: 1px;
     }
@@ -608,7 +672,7 @@
     .facility-title {
       font-size: 0.82rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-bright);
       line-height: 1.25;
     }
 
@@ -624,7 +688,7 @@
 
     .tag-refinery {
       background: rgba(0, 230, 118, 0.15);
-      color: var(--color-refinery);
+      color: #00c853;
       border: 1px solid rgba(0, 230, 118, 0.45);
     }
 
@@ -651,11 +715,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0c1117;
+      background: var(--sub-box-bg);
       padding: 5px 8px 5px 28px;
       border-radius: 5px;
       font-size: 0.74rem;
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
     }
 
     .card-capacity-bar span:first-child {
@@ -679,10 +743,10 @@
       height: 5px;
       border-radius: 3px;
       overflow: hidden;
-      background: #080c10;
+      background: var(--sub-box-alt);
       margin-top: 6px;
       margin-left: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
     }
 
     .fuel-segment {
@@ -700,18 +764,18 @@
 
     .fuel-chip {
       font-size: 0.63rem;
-      color: #cbd5e1;
-      background: #0d131a;
+      color: var(--text-muted);
+      background: var(--sub-box-alt);
       padding: 1px 5px;
       border-radius: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
     .fuel-chip strong {
-      color: #f1f5f9;
+      color: var(--text-bright);
     }
 
     .chip-dot {
@@ -721,27 +785,64 @@
       display: inline-block;
     }
 
-    /* Cartographic Legend */
+    /* Cartographic Legend & Collapsible State */
     .map-legend {
-      background: rgba(18, 24, 32, 0.94);
+      background: var(--overlay-bg);
       backdrop-filter: blur(10px);
-      padding: 12px 14px;
+      padding: 10px 14px;
       border-radius: 8px;
       border: 1px solid var(--border-color);
-      color: #ffffff;
+      color: var(--text-main);
       font-size: 0.73rem;
       line-height: 1.45;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      width: 240px;
+      box-shadow: var(--shadow-elevation);
+      width: 245px;
+      transition: width 0.2s ease, padding 0.2s ease;
+    }
+
+    .map-legend.collapsed {
+      width: auto;
+      padding: 6px 10px;
+    }
+
+    .map-legend.collapsed .legend-body {
+      display: none;
+    }
+
+    .legend-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .map-legend.collapsed .legend-header-row {
+      margin-bottom: 0;
     }
 
     .legend-title {
       font-weight: 800;
-      margin-bottom: 6px;
       font-size: 0.71rem;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      color: #94a3b8;
+      color: var(--text-muted);
+    }
+
+    .legend-toggle-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      cursor: pointer;
+    }
+
+    .legend-toggle-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
     }
 
     .legend-item {
@@ -780,7 +881,7 @@
     .legend-scale-box {
       margin-top: 7px;
       padding-top: 7px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-color);
       font-size: 0.65rem;
       color: var(--text-muted);
       line-height: 1.35;
@@ -789,7 +890,7 @@
     .legend-ref-box {
       margin-top: 6px;
       padding-top: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-color);
       font-size: 0.63rem;
       color: var(--text-dim);
       line-height: 1.3;
@@ -806,9 +907,9 @@
 
     /* Leaflet Popups Styled */
     .leaflet-popup-content-wrapper {
-      background: #141c26 !important;
-      color: #ffffff !important;
-      border: 1px solid #334155;
+      background: var(--popup-bg) !important;
+      color: var(--text-main) !important;
+      border: 1px solid var(--border-light);
       border-radius: 8px;
       box-shadow: var(--shadow-elevation);
       padding: 0 !important;
@@ -820,14 +921,14 @@
     }
 
     .leaflet-popup-tip {
-      background: #141c26 !important;
+      background: var(--popup-bg) !important;
     }
 
     .popup-box h3 {
       font-size: 0.88rem;
       font-weight: 800;
       margin-bottom: 3px;
-      color: #ffffff;
+      color: var(--text-bright);
     }
 
     .popup-box .pop-tag {
@@ -845,7 +946,7 @@
       justify-content: space-between;
       font-size: 0.72rem;
       padding: 2.5px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .popup-row span:first-child {
@@ -854,13 +955,13 @@
 
     .popup-row span:last-child {
       font-weight: 600;
-      color: #f1f5f9;
+      color: var(--text-bright);
       text-align: right;
     }
 
     .popup-capacity-hero {
-      background: #0b1118;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--sub-box-bg);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 6px;
       padding: 8px 10px;
       margin: 7px 0;
@@ -870,29 +971,29 @@
     .popup-capacity-hero .hero-primary {
       font-size: 1.22rem;
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--accent-cyan);
       line-height: 1.1;
     }
 
     .popup-capacity-hero .hero-unit {
       font-size: 0.72rem;
-      color: #94a3b8;
+      color: var(--text-muted);
       font-weight: 600;
       text-transform: uppercase;
     }
 
     .popup-capacity-hero .hero-secondary {
       font-size: 0.72rem;
-      color: #94a3b8;
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
     .popup-breakdown-box {
-      background: #090e14;
+      background: var(--sub-box-alt);
       border-radius: 6px;
       padding: 8px 10px;
       margin: 7px 0;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
     }
 
     .breakdown-title {
@@ -900,7 +1001,7 @@
       text-transform: uppercase;
       font-weight: 800;
       letter-spacing: 0.5px;
-      color: #94a3b8;
+      color: var(--text-muted);
       margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
@@ -911,7 +1012,7 @@
       height: 7px;
       border-radius: 3px;
       overflow: hidden;
-      background: #1e293b;
+      background: var(--border-color);
       margin-bottom: 7px;
     }
 
@@ -923,7 +1024,8 @@
 
     .breakdown-table td {
       padding: 2px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
     }
 
     .breakdown-table tr:last-child td {
@@ -935,33 +1037,33 @@
     }
 
     .text-muted {
-      color: #94a3b8;
+      color: var(--text-muted);
     }
 
     .text-accent {
-      color: #38bdf8;
+      color: var(--accent-cyan);
       font-weight: 600;
     }
 
     .popup-desc {
       font-size: 0.69rem;
-      color: #cbd5e1;
+      color: var(--text-muted);
       margin-top: 7px;
       line-height: 1.35;
-      background: #0b1016;
+      background: var(--sub-box-bg);
       padding: 7px 9px;
       border-radius: 5px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
     }
 
     .typhoon-tooltip {
-      background: #111827 !important;
-      color: #ffffff !important;
+      background: var(--popup-bg) !important;
+      color: var(--text-bright) !important;
       border: 1px solid #e11d48 !important;
       border-radius: 5px !important;
       padding: 4px 8px !important;
       font-size: 0.7rem !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+      box-shadow: var(--shadow-elevation) !important;
     }
 
     /* Executive Modal (National Macro Context & MIR Audit) */
@@ -978,7 +1080,7 @@
     }
 
     .modal-container {
-      background: #141c26;
+      background: var(--panel-bg);
       border: 1px solid var(--border-light);
       border-radius: 12px;
       width: 100%;
@@ -986,7 +1088,7 @@
       max-height: 88vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+      box-shadow: var(--shadow-elevation);
       overflow: hidden;
     }
 
@@ -996,13 +1098,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0f151e;
+      background: var(--panel-header-bg);
     }
 
     .modal-header h2 {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-bright);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -1020,15 +1122,15 @@
     }
 
     .modal-close-btn:hover {
-      color: #ffffff;
-      background: #1e293b;
+      color: var(--text-bright);
+      background: var(--btn-hover);
     }
 
     .modal-body {
       padding: 20px 24px;
       overflow-y: auto;
       font-size: 0.81rem;
-      color: #cbd5e1;
+      color: var(--text-main);
       line-height: 1.6;
     }
 
@@ -1040,7 +1142,7 @@
     }
 
     .modal-stat-card {
-      background: #0c1117;
+      background: var(--sub-box-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 12px 16px;
@@ -1057,7 +1159,7 @@
     .modal-stat-card .val {
       font-size: 1.3rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-bright);
     }
 
     .modal-stat-card .sub {
@@ -1071,15 +1173,15 @@
       border-collapse: collapse;
       font-size: 0.75rem;
       margin-top: 8px;
-      background: #0c1117;
+      background: var(--sub-box-bg);
       border-radius: 6px;
       overflow: hidden;
       border: 1px solid var(--border-color);
     }
 
     .modal-table th {
-      background: #16202c;
-      color: #94a3b8;
+      background: var(--panel-header-bg);
+      color: var(--text-muted);
       text-align: left;
       padding: 8px 12px;
       font-weight: 700;
@@ -1091,54 +1193,54 @@
 
     .modal-table td {
       padding: 7px 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #cbd5e1;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
     }
 
     .modal-table tr:hover {
-      background: #121922;
+      background: var(--card-hover);
     }
 
     /* Toast Notification Overlay */
     .toast-notification {
       position: fixed;
       bottom: 24px;
-      right: 440px;
-      background: #1e293b;
-      border: 1px solid #38bdf8;
-      color: #ffffff;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--panel-bg);
+      border: 1px solid var(--accent-cyan);
+      color: var(--text-bright);
       padding: 8px 18px;
       border-radius: 20px;
       font-size: 0.78rem;
       font-weight: 600;
       z-index: 3000;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      box-shadow: var(--shadow-elevation);
       display: none;
       align-items: center;
       gap: 8px;
       pointer-events: none;
     }
-  
-    /* Layer Control Styled to Match Dark Executive Theme */
+
+    /* Layer Control Styled */
     .leaflet-control-layers {
-      background: rgba(18, 24, 32, 0.94) !important;
+      background: var(--overlay-bg) !important;
       backdrop-filter: blur(10px);
       border: 1px solid var(--border-color) !important;
       border-radius: 8px !important;
-      color: #ffffff !important;
+      color: var(--text-main) !important;
       font-size: 0.72rem !important;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+      box-shadow: var(--shadow-elevation) !important;
       padding: 6px 10px !important;
     }
 
     .leaflet-control-layers-toggle {
-      background-color: #1e293b !important;
+      background-color: var(--btn-bg) !important;
       border-radius: 6px !important;
       border: 1px solid var(--border-light) !important;
       width: 32px !important;
       height: 32px !important;
       background-size: 18px 18px !important;
-      filter: invert(1) hue-rotate(180deg);
     }
 
     .leaflet-control-layers-expanded {
@@ -1153,20 +1255,19 @@
       gap: 7px;
       margin-bottom: 5px;
       cursor: pointer;
-      color: #cbd5e1;
+      color: var(--text-main);
       font-weight: 500;
     }
 
     .leaflet-control-layers-base label:hover,
     .leaflet-control-layers-overlays label:hover {
-      color: #38bdf8;
+      color: var(--accent-cyan);
     }
 
     .leaflet-control-layers-separator {
-      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-top: 1px solid var(--border-color) !important;
       margin: 8px 0 !important;
     }
-
   </style>
 </head>
 <body>
@@ -1184,21 +1285,23 @@
       <div class="stat-pill">
         <span>Strategic Storage:</span> <strong>50.24 MB (7,987.62 ML)</strong>
       </div>
+      <button class="btn" id="btnToggleTheme" title="Switch between Dark and Light mode (updates map basemap)">
+        ☀️ Light Mode
+      </button>
+      <button class="btn btn-scale active" id="btnToggleScaling" title="Toggle proportional sizing or uniform point radius">
+        📏 Scaling: ON
+      </button>
       <button class="btn btn-typhoon active" id="btnToggleTyphoons" title="Toggle historical tropical cyclone tracks on/off">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A6.007 6.007 0 0 1 6.07 11.9a1 1 0 0 1 1.98-.3A4.008 4.008 0 0 0 11.93 15H12a1 1 0 0 1 1 1.93zm4.93-4.03a1 1 0 0 1-1.98.3A4.008 4.008 0 0 0 12.07 9H12a1 1 0 0 1-1-1.93V7a1 1 0 0 1 2 0v.07a6.007 6.007 0 0 1 4.93 5.03z"/></svg>
-        Historical Typhoons: ON
+        🌀 Typhoons: ON
       </button>
       <button class="btn btn-context" id="btnContextModal" title="View National Balance & Minimum Inventory Requirements (MIR)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-        Executive Context
+        ℹ️ Executive Context
       </button>
       <button class="btn btn-lasso" id="btnToggleLasso" title="Activate freehand polygon selection on map">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4zM14 14h6v6h-6zM4 14h6v6H4zM14 4h6v6h-6z"/></svg>
-        Lasso Selection Tool
+        ✏️ Lasso Selection
       </button>
-      <button class="btn btn-export" id="btnExportPPT" title="Capture high-resolution PNG for PowerPoint presentation slides">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Export Map (PPT)
+      <button class="btn" id="btnToggleSidebar" title="Show or hide the facilities side panel">
+        🗂️ Hide Panel
       </button>
     </div>
   </header>
@@ -1208,7 +1311,12 @@
     <div id="map-wrapper">
       <div id="map"></div>
 
-      <!-- Watermark Title Overlay for PPT exports -->
+      <!-- Edge Tab to quickly collapse/expand Sidebar -->
+      <button class="sidebar-edge-toggle" id="btnSidebarEdge" title="Toggle Sidebar Panel">
+        ❯
+      </button>
+
+      <!-- Title Overlay -->
       <div class="map-title-banner">
         <h2>Philippines Petroleum Downstream Infrastructure & Typhoon Vulnerability</h2>
         <p>APEC Oil & Gas Security Exercise (OGSE) • DOE-OIMB • Typhoon2000.ph Historical Tracks</p>
@@ -1222,7 +1330,7 @@
         </div>
         <div class="analytics-metric">
           <div class="metric-value" id="lassoSelectedCapMB">0.00 <span class="metric-unit">MB</span></div>
-          <div class="metric-sub" id="lassoSelectedCapML">0.00 ML • <strong id="lassoPercentTotal" style="color:#38bdf8;">0%</strong> of strategic assets</div>
+          <div class="metric-sub" id="lassoSelectedCapML">0.00 ML • <strong id="lassoPercentTotal" style="color:var(--accent-cyan);">0%</strong> of strategic assets</div>
         </div>
         <div class="analytics-breakdown">
           <div class="breakdown-badge">
@@ -1251,7 +1359,7 @@
     </div>
 
     <!-- Sidebar Panel: Strictly Descending Ordered Table -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebarPanel">
       <div class="sidebar-header">
         <div class="sidebar-title-row">
           <h2>Strategic Facilities (#1 – #33)</h2>
@@ -1282,7 +1390,7 @@
     <div class="modal-container">
       <div class="modal-header">
         <h2>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#38bdf8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
           Philippines Downstream Oil Context & National Balance
         </h2>
         <button class="modal-close-btn" id="btnCloseModal">&times;</button>
@@ -1311,7 +1419,7 @@
           </div>
         </div>
 
-        <h3 style="color:#ffffff; font-size: 0.88rem; margin: 16px 0 6px 0;">National Petroleum Demand by Fuel Category (FY 2025)</h3>
+        <h3 style="color:var(--text-bright); font-size: 0.88rem; margin: 16px 0 6px 0;">National Petroleum Demand by Fuel Category (FY 2025)</h3>
         <table class="modal-table">
           <thead>
             <tr>
@@ -1330,11 +1438,11 @@
             <tr><td>Industrial Fuel Oil / Marine Bunkers</td><td>5.64 MB</td><td>896.54 ML</td><td>15.45 kb/d</td><td>3.13%</td></tr>
             <tr><td>Illuminating Kerosene</td><td>0.32 MB</td><td>50.24 ML</td><td>0.87 kb/d</td><td>0.18%</td></tr>
             <tr><td>Specialty Products (Asphalt, Solvents, Petcoke)</td><td>1.71 MB</td><td>271.31 ML</td><td>4.67 kb/d</td><td>0.95%</td></tr>
-            <tr style="font-weight: 700; color:#38bdf8;"><td>Total National Market</td><td>180.17 MB</td><td>28,645.52 ML</td><td>493.62 kb/d</td><td>100.00%</td></tr>
+            <tr style="font-weight: 700; color:var(--accent-cyan);"><td>Total National Market</td><td>180.17 MB</td><td>28,645.52 ML</td><td>493.62 kb/d</td><td>100.00%</td></tr>
           </tbody>
         </table>
 
-        <h3 style="color:#ffffff; font-size: 0.88rem; margin: 18px 0 6px 0;">Strategic Bulk Storage by Fuel Category across Top 33 Hubs</h3>
+        <h3 style="color:var(--text-bright); font-size: 0.88rem; margin: 18px 0 6px 0;">Strategic Bulk Storage by Fuel Category across Top 33 Hubs</h3>
         <table class="modal-table">
           <thead>
             <tr>
@@ -1395,7 +1503,7 @@
               <td>1.0%</td>
               <td>Industrial boilers, thermal industrial facilities, and heavy marine bunker cabotage vessels.</td>
             </tr>
-            <tr style="font-weight: 700; color:#38bdf8;">
+            <tr style="font-weight: 700; color:var(--accent-cyan);">
               <td>Total 33 Strategic Facilities</td>
               <td><strong>29.37 MB</strong></td>
               <td>4,671.55 ML</td>
@@ -1405,8 +1513,8 @@
           </tbody>
         </table>
 
-        <h3 style="color:#ffffff; font-size: 0.88rem; margin: 18px 0 6px 0;">Minimum Inventory Requirements (MIR) — DOE Circular DC 2003-01-001</h3>
-        <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px;">
+        <h3 style="color:var(--text-bright); font-size: 0.88rem; margin: 18px 0 6px 0;">Minimum Inventory Requirements (MIR) — DOE Circular DC 2003-01-001</h3>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
           The Department of Energy enforces statutory minimum stockholding obligations to safeguard the archipelago against maritime supply disruptions:
         </p>
         <ul style="padding-left: 20px; font-size: 0.76rem; line-height: 1.5; margin-bottom: 14px;">
@@ -1414,33 +1522,18 @@
           <li><strong>Bulk Fuel Importers:</strong> Minimum 15 days of operational product stocks in usable commercial shore tanks (~7.4 MB total).</li>
           <li><strong>LPG Bulk Importers and Marketers:</strong> Minimum 7 days of commercial pressurised/cryogenic inventory (~0.45 MB total).</li>
         </ul>
-
-        <h3 style="color:#ffffff; font-size: 0.88rem; margin: 16px 0 6px 0;">Extreme Weather Vulnerability: Historical Typhoon Tracks (1947–2009)</h3>
-        <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px;">
-          Historical tracks of the 12 most devastating Philippine typhoons compiled by <a href="https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm" target="_blank" style="color:#38bdf8; text-decoration:none;">Typhoon2000.ph</a> demonstrate severe geospatial overlap with critical downstream petroleum clusters:
-        </p>
-        <ul style="padding-left: 20px; font-size: 0.76rem; line-height: 1.5;">
-          <li><strong>Bataan & Subic Bay Corridor:</strong> Directly impacted by Super Typhoons <em>Sening</em> (1970) and <em>Rosing</em> (1995), cutting off sea berths and terminal offloading.</li>
-          <li><strong>Batangas Megahub (SHIFT, Chevron, Seaoil, Phoenix):</strong> Traversed by <em>Sisang</em> (1987) and <em>Reming</em> (2006), highlighting coastal storm surge vulnerability.</li>
-          <li><strong>Visayas Maritime Cabotage Routes:</strong> Repeatedly disrupted by <em>Amy</em> (1951), <em>Nitang</em> (1984), <em>Undang</em> (1984), <em>Ruping</em> (1990), <em>Uring</em> (1991), and <em>Frank</em> (2008), isolating island retail networks.</li>
-        </ul>
       </div>
     </div>
   </div>
 
   <!-- CDN Dependencies -->
-  <!-- Leaflet JS v1.9.4 -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- Leaflet-Lasso v2.2.13 -->
   <script src="https://unpkg.com/leaflet-lasso@2.2.13/dist/leaflet-lasso.umd.min.js"></script>
-  <!-- html2canvas v1.4.1 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
     // 1. STRATEGIC FACILITIES DATASET (33 HUBS - STRICT DESCENDING ORDER BY CAPACITY)
-    // Primary Capacity Unit: MB (Million Barrels) | Secondary Unit: ML (Million Litres)
     const strategicFacilities = [
-    {
+      {
         "rank": 1,
         "name": "Petron Bataan Refinery & Marine Terminal",
         "operator": "Petron Corporation",
@@ -1454,44 +1547,14 @@
         "cap_mb": 9.76,
         "products": "Imported crude petroleum, Euro 4/5 unleaded petrol, automotive diesel, commercial aviation Jet A-1, pressurised bulk LPG, polymer-grade propylene, mixed xylenes, toluene, benzene, elemental sulphur, and anode-grade petroleum coke.",
         "fuelBreakdown": [
-            {
-                "fuel": "Crude Petroleum",
-                "mb": 2.85,
-                "ml": 453.0,
-                "pct": 29.2,
-                "color": "#64748b"
-            },
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 2.77,
-                "ml": 440.0,
-                "pct": 28.4,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 2.26,
-                "ml": 360.0,
-                "pct": 23.2,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation Jet A-1",
-                "mb": 1.01,
-                "ml": 160.0,
-                "pct": 10.3,
-                "color": "#c084fc"
-            },
-            {
-                "fuel": "LPG & Petcoke",
-                "mb": 0.87,
-                "ml": 139.0,
-                "pct": 8.9,
-                "color": "#fb923c"
-            }
+          { "fuel": "Crude Petroleum", "mb": 2.85, "ml": 453.0, "pct": 29.2, "color": "#64748b" },
+          { "fuel": "Automotive Diesel", "mb": 2.77, "ml": 440.0, "pct": 28.4, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 2.26, "ml": 360.0, "pct": 23.2, "color": "#fbbf24" },
+          { "fuel": "Aviation Jet A-1", "mb": 1.01, "ml": 160.0, "pct": 10.3, "color": "#c084fc" },
+          { "fuel": "LPG & Petcoke", "mb": 0.87, "ml": 139.0, "pct": 8.9, "color": "#fb923c" }
         ]
-    },
-    {
+      },
+      {
         "rank": 2,
         "name": "Subic Bay Fuel Terminal (PCSPC)",
         "operator": "Philippine Coastal Storage & Pipeline Corp.",
@@ -1505,37 +1568,13 @@
         "cap_mb": 6.3,
         "products": "Ultra-low sulphur automotive diesel, finished unleaded petrol, commercial Jet A-1, JP-5 military aviation turbine fuel, F-76 naval distillate fuel, and anhydrous fuel ethanol.",
         "fuelBreakdown": [
-            {
-                "fuel": "ULS Automotive Diesel",
-                "mb": 3.15,
-                "ml": 501.0,
-                "pct": 50.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 2.02,
-                "ml": 320.64,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation & Naval Fuel (Jet/F-76)",
-                "mb": 0.94,
-                "ml": 150.3,
-                "pct": 15.0,
-                "color": "#c084fc"
-            },
-            {
-                "fuel": "Fuel Bioethanol",
-                "mb": 0.19,
-                "ml": 30.06,
-                "pct": 3.0,
-                "color": "#34d399"
-            }
+          { "fuel": "ULS Automotive Diesel", "mb": 3.15, "ml": 501.0, "pct": 50.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 2.02, "ml": 320.64, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Aviation & Naval Fuel (Jet/F-76)", "mb": 0.94, "ml": 150.3, "pct": 15.0, "color": "#c084fc" },
+          { "fuel": "Fuel Bioethanol", "mb": 0.19, "ml": 30.06, "pct": 3.0, "color": "#34d399" }
         ]
-    },
-    {
+      },
+      {
         "rank": 3,
         "name": "Chevron Batangas Marine Terminal",
         "operator": "Chevron Philippines Inc. (Caltex)",
@@ -1549,37 +1588,13 @@
         "cap_mb": 2.5,
         "products": "Finished unleaded petrol with Techron, automotive diesel, commercial aviation turbine fuel, and industrial paving bitumen / asphalt.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 1.13,
-                "ml": 178.88,
-                "pct": 45.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Petrol with Techron",
-                "mb": 0.88,
-                "ml": 139.12,
-                "pct": 35.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation Jet A-1",
-                "mb": 0.25,
-                "ml": 39.75,
-                "pct": 10.0,
-                "color": "#c084fc"
-            },
-            {
-                "fuel": "Asphalt / Bitumen",
-                "mb": 0.24,
-                "ml": 39.75,
-                "pct": 10.0,
-                "color": "#a8a29e"
-            }
+          { "fuel": "Automotive Diesel", "mb": 1.13, "ml": 178.88, "pct": 45.0, "color": "#38bdf8" },
+          { "fuel": "Petrol with Techron", "mb": 0.88, "ml": 139.12, "pct": 35.0, "color": "#fbbf24" },
+          { "fuel": "Aviation Jet A-1", "mb": 0.25, "ml": 39.75, "pct": 10.0, "color": "#c084fc" },
+          { "fuel": "Asphalt / Bitumen", "mb": 0.24, "ml": 39.75, "pct": 10.0, "color": "#a8a29e" }
         ]
-    },
-    {
+      },
+      {
         "rank": 4,
         "name": "Shell Import Facility Tabangao (SHIFT)",
         "operator": "Shell Pilipinas Corporation",
@@ -1593,37 +1608,13 @@
         "cap_mb": 1.65,
         "products": "Shell V-Power and FuelSave unleaded petrol, automotive low-sulphur diesel, commercial Jet A-1, and heavy industrial fuel oil.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.76,
-                "ml": 120.98,
-                "pct": 46.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "V-Power & Unleaded Petrol",
-                "mb": 0.53,
-                "ml": 84.16,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Commercial Jet A-1",
-                "mb": 0.2,
-                "ml": 31.56,
-                "pct": 12.0,
-                "color": "#c084fc"
-            },
-            {
-                "fuel": "Industrial Fuel Oil",
-                "mb": 0.16,
-                "ml": 26.3,
-                "pct": 10.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.76, "ml": 120.98, "pct": 46.0, "color": "#38bdf8" },
+          { "fuel": "V-Power & Unleaded Petrol", "mb": 0.53, "ml": 84.16, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Commercial Jet A-1", "mb": 0.2, "ml": 31.56, "pct": 12.0, "color": "#c084fc" },
+          { "fuel": "Industrial Fuel Oil", "mb": 0.16, "ml": 26.3, "pct": 10.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 5,
         "name": "Seaoil Mabini Bulk Terminal",
         "operator": "Seaoil Philippines, Inc.",
@@ -1637,30 +1628,12 @@
         "cap_mb": 1.2,
         "products": "Premium and regular unleaded petrol, automotive diesel fuel, anhydrous fuel ethanol, and specialised friction-reducing performance additives.",
         "fuelBreakdown": [
-            {
-                "fuel": "Transport Diesel",
-                "mb": 0.6,
-                "ml": 95.0,
-                "pct": 50.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.44,
-                "ml": 70.3,
-                "pct": 37.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Bioethanol & Additives",
-                "mb": 0.16,
-                "ml": 24.7,
-                "pct": 13.0,
-                "color": "#34d399"
-            }
+          { "fuel": "Transport Diesel", "mb": 0.6, "ml": 95.0, "pct": 50.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.44, "ml": 70.3, "pct": 37.0, "color": "#fbbf24" },
+          { "fuel": "Bioethanol & Additives", "mb": 0.16, "ml": 24.7, "pct": 13.0, "color": "#34d399" }
         ]
-    },
-    {
+      },
+      {
         "rank": 6,
         "name": "Calaca Petroterminals & Industrial Park",
         "operator": "Phoenix Petroleum Philippines, Inc.",
@@ -1674,30 +1647,12 @@
         "cap_mb": 1.13,
         "products": "Euro 5 compliant automotive diesel, 91/95/98 RON unleaded petrol, anhydrous ethanol, and coconut methyl ester (CME) biodiesel blendstocks.",
         "fuelBreakdown": [
-            {
-                "fuel": "Euro 5 Diesel",
-                "mb": 0.57,
-                "ml": 90.0,
-                "pct": 50.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.37,
-                "ml": 59.4,
-                "pct": 33.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Bioethanol & CME",
-                "mb": 0.19,
-                "ml": 30.6,
-                "pct": 17.0,
-                "color": "#34d399"
-            }
+          { "fuel": "Euro 5 Diesel", "mb": 0.57, "ml": 90.0, "pct": 50.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.37, "ml": 59.4, "pct": 33.0, "color": "#fbbf24" },
+          { "fuel": "Bioethanol & CME", "mb": 0.19, "ml": 30.6, "pct": 17.0, "color": "#34d399" }
         ]
-    },
-    {
+      },
+      {
         "rank": 7,
         "name": "Metro Manila Bulk Depots Hub (NCR)",
         "operator": "Joint Industry Depot (Petron, Shell, Chevron)",
@@ -1711,30 +1666,12 @@
         "cap_mb": 0.98,
         "products": "Clean transport diesel, premium unleaded motor spirit, commercial aviation fuel, illuminating kerosene, and light industrial fuel oil.",
         "fuelBreakdown": [
-            {
-                "fuel": "Transport Diesel",
-                "mb": 0.5,
-                "ml": 79.8,
-                "pct": 51.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.38,
-                "ml": 59.46,
-                "pct": 38.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Kerosene & Light Distillates",
-                "mb": 0.1,
-                "ml": 17.22,
-                "pct": 11.0,
-                "color": "#a8a29e"
-            }
+          { "fuel": "Transport Diesel", "mb": 0.5, "ml": 79.8, "pct": 51.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.38, "ml": 59.46, "pct": 38.0, "color": "#fbbf24" },
+          { "fuel": "Kerosene & Light Distillates", "mb": 0.1, "ml": 17.22, "pct": 11.0, "color": "#a8a29e" }
         ]
-    },
-    {
+      },
+      {
         "rank": 8,
         "name": "Poro Point Joint Oil Terminal",
         "operator": "Petron & Chevron Joint Venture",
@@ -1748,30 +1685,12 @@
         "cap_mb": 0.57,
         "products": "Transport diesel, unleaded petrol, aviation turbine fuel, illuminating kerosene, and marine lubricants for North Luzon distribution.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.28,
-                "ml": 45.0,
-                "pct": 50.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.19,
-                "ml": 29.7,
-                "pct": 33.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Commercial Jet & Kerosene",
-                "mb": 0.1,
-                "ml": 15.3,
-                "pct": 17.0,
-                "color": "#c084fc"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.28, "ml": 45.0, "pct": 50.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.19, "ml": 29.7, "pct": 33.0, "color": "#fbbf24" },
+          { "fuel": "Commercial Jet & Kerosene", "mb": 0.1, "ml": 15.3, "pct": 17.0, "color": "#c084fc" }
         ]
-    },
-    {
+      },
+      {
         "rank": 9,
         "name": "Shell North Mindanao Oil Terminal (NMOT)",
         "operator": "Shell Pilipinas Corporation",
@@ -1785,30 +1704,12 @@
         "cap_mb": 0.57,
         "products": "Low-sulphur diesel fuel, premium unleaded petrol, aviation turbine kerosene, heavy fuel oil, and lubricants.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.3,
-                "ml": 47.7,
-                "pct": 53.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "V-Power Petrol",
-                "mb": 0.2,
-                "ml": 32.4,
-                "pct": 36.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation Jet A-1",
-                "mb": 0.07,
-                "ml": 9.9,
-                "pct": 11.0,
-                "color": "#c084fc"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.3, "ml": 47.7, "pct": 53.0, "color": "#38bdf8" },
+          { "fuel": "V-Power Petrol", "mb": 0.2, "ml": 32.4, "pct": 36.0, "color": "#fbbf24" },
+          { "fuel": "Aviation Jet A-1", "mb": 0.07, "ml": 9.9, "pct": 11.0, "color": "#c084fc" }
         ]
-    },
-    {
+      },
+      {
         "rank": 10,
         "name": "Jetti Mariveles Bulk Terminal",
         "operator": "Jetti Petroleum Inc.",
@@ -1822,30 +1723,12 @@
         "cap_mb": 0.45,
         "products": "Euro 5 automotive diesel, 91/95 unleaded petrol, ethanol blendstock, and marine fuel oil.",
         "fuelBreakdown": [
-            {
-                "fuel": "Euro 5 Diesel",
-                "mb": 0.25,
-                "ml": 40.32,
-                "pct": 56.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.15,
-                "ml": 23.76,
-                "pct": 33.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Marine Fuel Oil",
-                "mb": 0.05,
-                "ml": 7.92,
-                "pct": 11.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Euro 5 Diesel", "mb": 0.25, "ml": 40.32, "pct": 56.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.15, "ml": 23.76, "pct": 33.0, "color": "#fbbf24" },
+          { "fuel": "Marine Fuel Oil", "mb": 0.05, "ml": 7.92, "pct": 11.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 11,
         "name": "Liquigaz Mariveles LPG Terminal",
         "operator": "Liquigaz Philippines Corporation",
@@ -1859,16 +1742,10 @@
         "cap_mb": 0.41,
         "products": "Refrigerated and pressurised liquefied petroleum gas (commercial propane, butane, and mixed autogas).",
         "fuelBreakdown": [
-            {
-                "fuel": "Refrigerated Bulk LPG",
-                "mb": 0.41,
-                "ml": 65.0,
-                "pct": 100.0,
-                "color": "#fb923c"
-            }
+          { "fuel": "Refrigerated Bulk LPG", "mb": 0.41, "ml": 65.0, "pct": 100.0, "color": "#fb923c" }
         ]
-    },
-    {
+      },
+      {
         "rank": 12,
         "name": "Petron Davao Bulk Terminal",
         "operator": "Petron Corporation",
@@ -1882,30 +1759,12 @@
         "cap_mb": 0.38,
         "products": "Automotive diesel, unleaded petrol, commercial aviation fuel, industrial fuel oil, and packaging bitumen.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.19,
-                "ml": 30.0,
-                "pct": 50.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.11,
-                "ml": 18.0,
-                "pct": 30.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation Jet & Asphalt",
-                "mb": 0.08,
-                "ml": 12.0,
-                "pct": 20.0,
-                "color": "#c084fc"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.19, "ml": 30.0, "pct": 50.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.11, "ml": 18.0, "pct": 30.0, "color": "#fbbf24" },
+          { "fuel": "Aviation Jet & Asphalt", "mb": 0.08, "ml": 12.0, "pct": 20.0, "color": "#c084fc" }
         ]
-    },
-    {
+      },
+      {
         "rank": 13,
         "name": "Jetti Tagoloan Bulk Terminal",
         "operator": "Jetti Petroleum Inc.",
@@ -1919,30 +1778,12 @@
         "cap_mb": 0.35,
         "products": "Automotive diesel, unleaded petrol, bioethanol blendstock, and heavy industrial fuel.",
         "fuelBreakdown": [
-            {
-                "fuel": "Transport Diesel",
-                "mb": 0.19,
-                "ml": 30.25,
-                "pct": 55.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.11,
-                "ml": 17.6,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Industrial Heavy Fuel",
-                "mb": 0.05,
-                "ml": 7.15,
-                "pct": 13.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Transport Diesel", "mb": 0.19, "ml": 30.25, "pct": 55.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.11, "ml": 17.6, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Industrial Heavy Fuel", "mb": 0.05, "ml": 7.15, "pct": 13.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 14,
         "name": "Shell San Fernando / Mandaue Terminal",
         "operator": "Shell Pilipinas Corporation",
@@ -1956,30 +1797,12 @@
         "cap_mb": 0.31,
         "products": "Automotive diesel, unleaded petrol, aviation fuel, and marine bunkering distillates.",
         "fuelBreakdown": [
-            {
-                "fuel": "Low-Sulphur Diesel",
-                "mb": 0.16,
-                "ml": 26.0,
-                "pct": 52.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.1,
-                "ml": 16.0,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Marine Bunkers",
-                "mb": 0.05,
-                "ml": 8.0,
-                "pct": 16.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Low-Sulphur Diesel", "mb": 0.16, "ml": 26.0, "pct": 52.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.1, "ml": 16.0, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Marine Bunkers", "mb": 0.05, "ml": 8.0, "pct": 16.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 15,
         "name": "South Pacific Inc. (SPI) Calaca LPG Terminal",
         "operator": "South Pacific Inc.",
@@ -1993,16 +1816,10 @@
         "cap_mb": 0.3,
         "products": "Bulk pressurised commercial LPG for domestic, commercial, and autogas filling sectors.",
         "fuelBreakdown": [
-            {
-                "fuel": "Pressurised Bulk LPG",
-                "mb": 0.3,
-                "ml": 48.0,
-                "pct": 100.0,
-                "color": "#fb923c"
-            }
+          { "fuel": "Pressurised Bulk LPG", "mb": 0.3, "ml": 48.0, "pct": 100.0, "color": "#fb923c" }
         ]
-    },
-    {
+      },
+      {
         "rank": 16,
         "name": "Chevron Davao Marine Terminal",
         "operator": "Chevron Philippines Inc.",
@@ -2016,30 +1833,12 @@
         "cap_mb": 0.28,
         "products": "Finished diesel, unleaded petrol with Techron, and commercial lubricating oils.",
         "fuelBreakdown": [
-            {
-                "fuel": "Transport Diesel",
-                "mb": 0.16,
-                "ml": 25.2,
-                "pct": 56.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Techron Unleaded Petrol",
-                "mb": 0.09,
-                "ml": 14.85,
-                "pct": 33.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Lubricants & Grease",
-                "mb": 0.03,
-                "ml": 4.95,
-                "pct": 11.0,
-                "color": "#a8a29e"
-            }
+          { "fuel": "Transport Diesel", "mb": 0.16, "ml": 25.2, "pct": 56.0, "color": "#38bdf8" },
+          { "fuel": "Techron Unleaded Petrol", "mb": 0.09, "ml": 14.85, "pct": 33.0, "color": "#fbbf24" },
+          { "fuel": "Lubricants & Grease", "mb": 0.03, "ml": 4.95, "pct": 11.0, "color": "#a8a29e" }
         ]
-    },
-    {
+      },
+      {
         "rank": 17,
         "name": "Iloilo Bulk Terminal Complex",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2053,30 +1852,12 @@
         "cap_mb": 0.24,
         "products": "Transport diesel, unleaded petrol, aviation turbine kerosene, and industrial fuel oil.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.13,
-                "ml": 20.14,
-                "pct": 53.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.08,
-                "ml": 12.16,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Fuel Oil & Bunkers",
-                "mb": 0.03,
-                "ml": 5.7,
-                "pct": 15.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.13, "ml": 20.14, "pct": 53.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.08, "ml": 12.16, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Fuel Oil & Bunkers", "mb": 0.03, "ml": 5.7, "pct": 15.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 18,
         "name": "Phoenix Villanueva Bulk Terminal",
         "operator": "Phoenix Petroleum Philippines, Inc.",
@@ -2090,30 +1871,12 @@
         "cap_mb": 0.23,
         "products": "Euro 4/5 transport diesel, regular and premium petrol, and industrial lubricants.",
         "fuelBreakdown": [
-            {
-                "fuel": "Transport Diesel",
-                "mb": 0.12,
-                "ml": 19.98,
-                "pct": 54.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.08,
-                "ml": 12.95,
-                "pct": 35.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Lubricants & Additives",
-                "mb": 0.03,
-                "ml": 4.07,
-                "pct": 11.0,
-                "color": "#a8a29e"
-            }
+          { "fuel": "Transport Diesel", "mb": 0.12, "ml": 19.98, "pct": 54.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.08, "ml": 12.95, "pct": 35.0, "color": "#fbbf24" },
+          { "fuel": "Lubricants & Additives", "mb": 0.03, "ml": 4.07, "pct": 11.0, "color": "#a8a29e" }
         ]
-    },
-    {
+      },
+      {
         "rank": 19,
         "name": "Seaoil General Santos Terminal",
         "operator": "Seaoil Philippines, Inc.",
@@ -2127,23 +1890,11 @@
         "cap_mb": 0.22,
         "products": "Automotive diesel, unleaded petrol, bioethanol, and marine fuels for fishing fleet operations.",
         "fuelBreakdown": [
-            {
-                "fuel": "Marine Fishing Diesel",
-                "mb": 0.14,
-                "ml": 22.05,
-                "pct": 63.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Commercial Unleaded Petrol",
-                "mb": 0.08,
-                "ml": 12.95,
-                "pct": 37.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Marine Fishing Diesel", "mb": 0.14, "ml": 22.05, "pct": 63.0, "color": "#38bdf8" },
+          { "fuel": "Commercial Unleaded Petrol", "mb": 0.08, "ml": 12.95, "pct": 37.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 20,
         "name": "Zamboanga Fuel Depot & Pier",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2157,30 +1908,12 @@
         "cap_mb": 0.2,
         "products": "Marine diesel fuel, unleaded motor spirit, power generation diesel, and marine lubricants.",
         "fuelBreakdown": [
-            {
-                "fuel": "Marine Fleet Diesel",
-                "mb": 0.11,
-                "ml": 17.92,
-                "pct": 56.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Automotive Petrol",
-                "mb": 0.06,
-                "ml": 9.92,
-                "pct": 31.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Power Gen Diesel",
-                "mb": 0.03,
-                "ml": 4.16,
-                "pct": 13.0,
-                "color": "#94a3b8"
-            }
+          { "fuel": "Marine Fleet Diesel", "mb": 0.11, "ml": 17.92, "pct": 56.0, "color": "#38bdf8" },
+          { "fuel": "Automotive Petrol", "mb": 0.06, "ml": 9.92, "pct": 31.0, "color": "#fbbf24" },
+          { "fuel": "Power Gen Diesel", "mb": 0.03, "ml": 4.16, "pct": 13.0, "color": "#94a3b8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 21,
         "name": "Pasacao Coastal Fuel Depot",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2194,30 +1927,12 @@
         "cap_mb": 0.16,
         "products": "Automotive diesel fuel, unleaded petrol, and illuminating kerosene serving the Bicol peninsula.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.09,
-                "ml": 14.0,
-                "pct": 56.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.05,
-                "ml": 8.0,
-                "pct": 32.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Illuminating Kerosene",
-                "mb": 0.02,
-                "ml": 3.0,
-                "pct": 12.0,
-                "color": "#a8a29e"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.09, "ml": 14.0, "pct": 56.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.05, "ml": 8.0, "pct": 32.0, "color": "#fbbf24" },
+          { "fuel": "Illuminating Kerosene", "mb": 0.02, "ml": 3.0, "pct": 12.0, "color": "#a8a29e" }
         ]
-    },
-    {
+      },
+      {
         "rank": 22,
         "name": "Chevron Lapu-Lapu Marine Terminal",
         "operator": "Chevron Philippines Inc.",
@@ -2231,30 +1946,12 @@
         "cap_mb": 0.15,
         "products": "Commercial aviation Jet A-1 for Mactan-Cebu International Airport, clean diesel, and unleaded petrol.",
         "fuelBreakdown": [
-            {
-                "fuel": "Airport Jet A-1",
-                "mb": 0.08,
-                "ml": 12.0,
-                "pct": 50.0,
-                "color": "#c084fc"
-            },
-            {
-                "fuel": "Euro 4 Diesel",
-                "mb": 0.04,
-                "ml": 6.96,
-                "pct": 29.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.03,
-                "ml": 5.04,
-                "pct": 21.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Airport Jet A-1", "mb": 0.08, "ml": 12.0, "pct": 50.0, "color": "#c084fc" },
+          { "fuel": "Euro 4 Diesel", "mb": 0.04, "ml": 6.96, "pct": 29.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.03, "ml": 5.04, "pct": 21.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 23,
         "name": "Bacolod Coastal Depot",
         "operator": "Petron Corporation",
@@ -2268,23 +1965,11 @@
         "cap_mb": 0.14,
         "products": "Automotive diesel, motor unleaded petrol, and industrial lubricants for agro-sugar plantations.",
         "fuelBreakdown": [
-            {
-                "fuel": "Agro-Industrial Diesel",
-                "mb": 0.09,
-                "ml": 14.08,
-                "pct": 64.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Motor Unleaded Petrol",
-                "mb": 0.05,
-                "ml": 7.92,
-                "pct": 36.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Agro-Industrial Diesel", "mb": 0.09, "ml": 14.08, "pct": 64.0, "color": "#38bdf8" },
+          { "fuel": "Motor Unleaded Petrol", "mb": 0.05, "ml": 7.92, "pct": 36.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 24,
         "name": "Jetti Naic Coastal Depot",
         "operator": "Jetti Petroleum Inc.",
@@ -2298,23 +1983,11 @@
         "cap_mb": 0.13,
         "products": "Clean automotive diesel and premium unleaded petrol supporting South Luzon retail stations.",
         "fuelBreakdown": [
-            {
-                "fuel": "E-10 Unleaded Petrol",
-                "mb": 0.07,
-                "ml": 11.0,
-                "pct": 55.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.06,
-                "ml": 9.0,
-                "pct": 45.0,
-                "color": "#38bdf8"
-            }
+          { "fuel": "E-10 Unleaded Petrol", "mb": 0.07, "ml": 11.0, "pct": 55.0, "color": "#fbbf24" },
+          { "fuel": "Automotive Diesel", "mb": 0.06, "ml": 9.0, "pct": 45.0, "color": "#38bdf8" }
         ]
-    },
-    {
+      },
+      {
         "rank": 25,
         "name": "Pryce Gases Balingasag LPG Terminal",
         "operator": "Pryce Gases, Inc.",
@@ -2328,16 +2001,10 @@
         "cap_mb": 0.13,
         "products": "Deep-water maritime import and distribution of refrigerated/pressurised bulk LPG.",
         "fuelBreakdown": [
-            {
-                "fuel": "Bulk Commercial LPG",
-                "mb": 0.13,
-                "ml": 20.0,
-                "pct": 100.0,
-                "color": "#fb923c"
-            }
+          { "fuel": "Bulk Commercial LPG", "mb": 0.13, "ml": 20.0, "pct": 100.0, "color": "#fb923c" }
         ]
-    },
-    {
+      },
+      {
         "rank": 26,
         "name": "Tacloban Coastal Fuel Depot",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2351,23 +2018,11 @@
         "cap_mb": 0.11,
         "products": "Automotive diesel, unleaded petrol, and emergency fuel storage for Eastern Visayas.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.06,
-                "ml": 10.08,
-                "pct": 56.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Unleaded Petrol",
-                "mb": 0.05,
-                "ml": 7.92,
-                "pct": 44.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.06, "ml": 10.08, "pct": 56.0, "color": "#38bdf8" },
+          { "fuel": "Unleaded Petrol", "mb": 0.05, "ml": 7.92, "pct": 44.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 27,
         "name": "Butuan / Masao Terminal Depot",
         "operator": "Petron & Independent Operators",
@@ -2381,23 +2036,11 @@
         "cap_mb": 0.11,
         "products": "Heavy equipment diesel, unleaded motor spirit, and industrial lubricants for Caraga mining and forestry.",
         "fuelBreakdown": [
-            {
-                "fuel": "Mining & Forestry Diesel",
-                "mb": 0.07,
-                "ml": 12.06,
-                "pct": 67.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Transport Petrol",
-                "mb": 0.04,
-                "ml": 5.94,
-                "pct": 33.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Mining & Forestry Diesel", "mb": 0.07, "ml": 12.06, "pct": 67.0, "color": "#38bdf8" },
+          { "fuel": "Transport Petrol", "mb": 0.04, "ml": 5.94, "pct": 33.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 28,
         "name": "Pryce Gases Asturias LPG Terminal",
         "operator": "Pryce Gases, Inc.",
@@ -2411,16 +2054,10 @@
         "cap_mb": 0.09,
         "products": "Bulk pressurized LPG marine terminal and cylinder bottling hub supplying Central/Western Visayas.",
         "fuelBreakdown": [
-            {
-                "fuel": "Bulk Cylinder LPG",
-                "mb": 0.09,
-                "ml": 15.0,
-                "pct": 100.0,
-                "color": "#fb923c"
-            }
+          { "fuel": "Bulk Cylinder LPG", "mb": 0.09, "ml": 15.0, "pct": 100.0, "color": "#fb923c" }
         ]
-    },
-    {
+      },
+      {
         "rank": 29,
         "name": "Puerto Princesa Fuel Depot",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2434,30 +2071,12 @@
         "cap_mb": 0.09,
         "products": "Diesel fuel for island grid power plants, aviation Jet A-1 for Puerto Princesa Airport, and retail petrol.",
         "fuelBreakdown": [
-            {
-                "fuel": "Power Gen Diesel",
-                "mb": 0.05,
-                "ml": 7.95,
-                "pct": 53.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Transport Petrol",
-                "mb": 0.02,
-                "ml": 4.05,
-                "pct": 27.0,
-                "color": "#fbbf24"
-            },
-            {
-                "fuel": "Aviation Jet A-1",
-                "mb": 0.02,
-                "ml": 3.0,
-                "pct": 20.0,
-                "color": "#c084fc"
-            }
+          { "fuel": "Power Gen Diesel", "mb": 0.05, "ml": 7.95, "pct": 53.0, "color": "#38bdf8" },
+          { "fuel": "Transport Petrol", "mb": 0.02, "ml": 4.05, "pct": 27.0, "color": "#fbbf24" },
+          { "fuel": "Aviation Jet A-1", "mb": 0.02, "ml": 3.0, "pct": 20.0, "color": "#c084fc" }
         ]
-    },
-    {
+      },
+      {
         "rank": 30,
         "name": "Calapan Coastal Depot",
         "operator": "Petron Corporation",
@@ -2471,23 +2090,11 @@
         "cap_mb": 0.08,
         "products": "Automotive diesel, motor unleaded petrol, and marine distillates for Ro-Ro passenger ferry fleets.",
         "fuelBreakdown": [
-            {
-                "fuel": "Marine & Fleet Diesel",
-                "mb": 0.05,
-                "ml": 7.56,
-                "pct": 63.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Automotive Petrol",
-                "mb": 0.03,
-                "ml": 4.44,
-                "pct": 37.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Marine & Fleet Diesel", "mb": 0.05, "ml": 7.56, "pct": 63.0, "color": "#38bdf8" },
+          { "fuel": "Automotive Petrol", "mb": 0.03, "ml": 4.44, "pct": 37.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 31,
         "name": "Dumaguete Coastal Depot",
         "operator": "Joint Industry Depot (Petron, Shell)",
@@ -2501,23 +2108,11 @@
         "cap_mb": 0.06,
         "products": "Automotive diesel, unleaded petrol, and marine engine lubricants for southern Visayas.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive Diesel",
-                "mb": 0.04,
-                "ml": 6.0,
-                "pct": 60.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Clean Unleaded Petrol",
-                "mb": 0.02,
-                "ml": 4.0,
-                "pct": 40.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Automotive Diesel", "mb": 0.04, "ml": 6.0, "pct": 60.0, "color": "#38bdf8" },
+          { "fuel": "Clean Unleaded Petrol", "mb": 0.02, "ml": 4.0, "pct": 40.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 32,
         "name": "Tuguegarao Bulk Depot",
         "operator": "Petron Corporation",
@@ -2531,23 +2126,11 @@
         "cap_mb": 0.05,
         "products": "Inland transport diesel and motor unleaded petrol supplying agricultural operations across Cagayan Valley.",
         "fuelBreakdown": [
-            {
-                "fuel": "Inland Transport Diesel",
-                "mb": 0.03,
-                "ml": 5.04,
-                "pct": 63.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Motor Unleaded Petrol",
-                "mb": 0.02,
-                "ml": 2.96,
-                "pct": 37.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Inland Transport Diesel", "mb": 0.03, "ml": 5.04, "pct": 63.0, "color": "#38bdf8" },
+          { "fuel": "Motor Unleaded Petrol", "mb": 0.02, "ml": 2.96, "pct": 37.0, "color": "#fbbf24" }
         ]
-    },
-    {
+      },
+      {
         "rank": 33,
         "name": "Polloc Port / Cotabato Depot",
         "operator": "Petron Corporation",
@@ -2561,26 +2144,13 @@
         "cap_mb": 0.04,
         "products": "Automotive diesel, commercial petrol, and industrial power lubricants serving Central Mindanao and BARMM.",
         "fuelBreakdown": [
-            {
-                "fuel": "Automotive & Marine Diesel",
-                "mb": 0.03,
-                "ml": 4.2,
-                "pct": 64.0,
-                "color": "#38bdf8"
-            },
-            {
-                "fuel": "Commercial Petrol",
-                "mb": 0.01,
-                "ml": 2.37,
-                "pct": 36.0,
-                "color": "#fbbf24"
-            }
+          { "fuel": "Automotive & Marine Diesel", "mb": 0.03, "ml": 4.2, "pct": 64.0, "color": "#38bdf8" },
+          { "fuel": "Commercial Petrol", "mb": 0.01, "ml": 2.37, "pct": 36.0, "color": "#fbbf24" }
         ]
-    }
-];
+      }
+    ];
 
     // 2. HISTORICAL TYPHOON TRACKS DATASET (12 WORST PHILIPPINE TYPHOONS)
-    // Source: Typhoon2000.ph (https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm)
     const typhoonsData = [
       {
         name: "AMY",
@@ -2755,7 +2325,6 @@
       }
     ];
 
-    // Official DOE Chromatic Symbology & Design Configuration
     const typeStyles = {
       "REFINERY": {
         color: "#00E676",
@@ -2777,20 +2346,16 @@
       }
     };
 
-    // Calculate total strategic capacity for percentage calculations
     const totalStrategicMB = strategicFacilities.reduce((sum, f) => sum + f.cap_mb, 0);
-    const totalStrategicML = strategicFacilities.reduce((sum, f) => sum + f.cap_ml, 0);
 
-    // Initialise Leaflet Map centred on the Philippine archipelago
-        // Initialise Leaflet Map centred on the Philippine archipelago
+    // Initialise Leaflet Map
     const map = L.map('map', {
       center: [12.8797, 122.5],
       zoom: 6,
       zoomControl: true,
-      preferCanvas: false // SVG rendering enables crisp html2canvas rasterisation
+      preferCanvas: false
     });
 
-    // High-performance Basemaps with CORS enabled (No API Key Required - 100% Free & Open)
     const baseLayers = {
       "ESRI Dark Gray (Tema Oscuro)": L.layerGroup([
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
@@ -2802,30 +2367,6 @@
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
           attribution: '',
           maxNativeZoom: 16,
-          maxZoom: 19,
-          crossOrigin: true
-        })
-      ]),
-      "ESRI World Street (Color)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, TomTom',
-        maxZoom: 19,
-        crossOrigin: true
-      }),
-      "ESRI World Topo (Topográfico)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, USGS, FAO',
-        maxZoom: 19,
-        crossOrigin: true
-      }),
-      "ESRI World Imagery (Satélite)": L.layerGroup([
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-          attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, GIS User Community',
-          maxNativeZoom: 18,
-          maxZoom: 19,
-          crossOrigin: true
-        }),
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
-          attribution: '',
-          maxNativeZoom: 18,
           maxZoom: 19,
           crossOrigin: true
         })
@@ -2844,8 +2385,32 @@
           crossOrigin: true
         })
       ]),
+      "ESRI World Street (Color)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, TomTom',
+        maxZoom: 19,
+        crossOrigin: true
+      }),
+      "ESRI World Topo (Topográfico)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, USGS, FAO',
+        maxZoom: 19,
+        crossOrigin: true
+      }),
+      "ESRI World Imagery (Satélite)": L.layerGroup([
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          attribution: 'Tiles &copy; Esri',
+          maxNativeZoom: 18,
+          maxZoom: 19,
+          crossOrigin: true
+        }),
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+          attribution: '',
+          maxNativeZoom: 18,
+          maxZoom: 19,
+          crossOrigin: true
+        })
+      ]),
       "OpenStreetMap (Estándar)": L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors (FOSSGIS)',
+        attribution: '&copy; OpenStreetMap contributors',
         subdomains: 'abc',
         maxNativeZoom: 18,
         maxZoom: 19,
@@ -2853,91 +2418,91 @@
       })
     };
 
-    // Default to ESRI Dark Gray (Tema Oscuro) to match dark dashboard aesthetics (or switch to ESRI World Street via layer control)
-    baseLayers["ESRI Dark Gray (Tema Oscuro)"].addTo(map);
+    let activeBaseLayer = baseLayers["ESRI Dark Gray (Tema Oscuro)"];
+    activeBaseLayer.addTo(map);
 
-    // Add Scale Control in metric kilometres
+    map.on('baselayerchange', (e) => {
+      activeBaseLayer = e.layer;
+    });
+
     L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(map);
 
-    // Layer Groups & State Storage (MUST be declared before layer control and event hooks)
+    // Layer Groups & State Storage
     const markersLayer = L.layerGroup().addTo(map);
     const markerMap = new Map();
     const typhoonsLayerGroup = L.layerGroup().addTo(map);
     let currentFilter = 'ALL';
     let currentSearch = '';
-    let selectedLassoIds = null; // null means no active lasso filter
+    let selectedLassoIds = null;
     let typhoonsVisible = true;
+    let scalingEnabled = true;
+    let isLightMode = false;
 
-    // Button reference for header typhoon toggle
     const btnToggleTyphoons = document.getElementById('btnToggleTyphoons');
+    const btnToggleScaling = document.getElementById('btnToggleScaling');
+    const btnToggleTheme = document.getElementById('btnToggleTheme');
+    const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+    const btnSidebarEdge = document.getElementById('btnSidebarEdge');
+    const sidebarPanel = document.getElementById('sidebarPanel');
 
-    // Layer Control for Basemap Switching & Typhoon Overlay
-    const layerControl = L.control.layers(baseLayers, {
+    // Layer Control
+    L.control.layers(baseLayers, {
       "🌀 Historical Typhoons (12 Worst)": typhoonsLayerGroup
     }, {
       position: 'topright',
       collapsed: true
     }).addTo(map);
 
-    // Keep header typhoon toggle button and layer control bidirectionally synchronised
     map.on('overlayadd', (e) => {
       if (e.layer === typhoonsLayerGroup) {
         typhoonsVisible = true;
-        if (btnToggleTyphoons) {
-          btnToggleTyphoons.classList.add('active');
-          btnToggleTyphoons.innerHTML = `
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A6.007 6.007 0 0 1 6.07 11.9a1 1 0 0 1 1.98-.3A4.008 4.008 0 0 0 11.93 15H12a1 1 0 0 1 1 1.93zm4.93-4.03a1 1 0 0 1-1.98.3A4.008 4.008 0 0 0 12.07 9H12a1 1 0 0 1-1-1.93V7a1 1 0 0 1 2 0v.07a6.007 6.007 0 0 1 4.93 5.03z"/></svg>
-            Historical Typhoons: ON
-          `;
-        }
+        btnToggleTyphoons.classList.add('active');
+        btnToggleTyphoons.textContent = '🌀 Typhoons: ON';
       }
     });
 
     map.on('overlayremove', (e) => {
       if (e.layer === typhoonsLayerGroup) {
         typhoonsVisible = false;
-        if (btnToggleTyphoons) {
-          btnToggleTyphoons.classList.remove('active');
-          btnToggleTyphoons.innerHTML = `
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A6.007 6.007 0 0 1 6.07 11.9a1 1 0 0 1 1.98-.3A4.008 4.008 0 0 0 11.93 15H12a1 1 0 0 1 1 1.93zm4.93-4.03a1 1 0 0 1-1.98.3A4.008 4.008 0 0 0 12.07 9H12a1 1 0 0 1-1-1.93V7a1 1 0 0 1 2 0v.07a6.007 6.007 0 0 1 4.93 5.03z"/></svg>
-            Historical Typhoons: OFF
-          `;
-        }
+        btnToggleTyphoons.classList.remove('active');
+        btnToggleTyphoons.textContent = '🌀 Typhoons: OFF';
       }
     });
 
-    // Graduated radius sizing function based on capacity in Million Barrels (MB)
+    // Calculate radius according to scalingEnabled state
     function calculateRadius(cap_mb) {
+      if (!scalingEnabled) {
+        return 8;
+      }
       return Math.max(6, Math.sqrt(cap_mb) * 8.5);
     }
 
-    // Render Graduated Circle Markers on Map
+    // Render Markers on Map
     function renderMapMarkers(facilities) {
       markersLayer.clearLayers();
       markerMap.clear();
 
+      const strokeColorDefault = isLightMode ? "#0f172a" : "#ffffff";
+
       facilities.forEach(item => {
         const style = typeStyles[item.type];
         const radius = calculateRadius(item.cap_mb);
-
         const isDimmed = selectedLassoIds && !selectedLassoIds.has(item.rank);
 
         const circle = L.circleMarker([item.lat, item.lng], {
           radius: radius,
           fillColor: style.fillColor,
-          color: isDimmed ? "#64748b" : "#ffffff",
+          color: isDimmed ? "#64748b" : strokeColorDefault,
           weight: isDimmed ? 0.8 : 1.6,
           opacity: isDimmed ? 0.3 : 0.95,
-          fillOpacity: isDimmed ? 0.15 : 0.72
+          fillOpacity: isDimmed ? 0.15 : 0.75
         });
 
-        // Store reference for Lasso retrieval
         circle.facilityData = item;
 
-        // Custom Popup Card in Professional Australian English with prominent MB and Product Breakdown
         const breakdownRows = item.fuelBreakdown.map(f => `
           <tr>
-            <td><span class="chip-dot" style="background:${f.color}"></span>${f.fuel}</td>
+            <td><span class="chip-dot" style="background:${f.color}"></span> ${f.fuel}</td>
             <td class="text-right"><strong>${f.mb.toFixed(2)} MB</strong></td>
             <td class="text-right text-muted">${f.ml.toFixed(1)} ML</td>
             <td class="text-right text-accent">${f.pct.toFixed(0)}%</td>
@@ -2975,7 +2540,7 @@
             </div>
 
             <div class="popup-desc">
-              <strong style="color:#ffffff;">Product Specifications & Logistics:</strong><br>
+              <strong style="color:var(--text-bright);">Product Specifications & Logistics:</strong><br>
               ${item.products}
             </div>
           </div>
@@ -3014,14 +2579,14 @@
             <span class="pop-tag" style="background:${t.color}25; color:${t.color}; border:1px solid ${t.color}">Historical Typhoon</span>
             <h3 style="margin-top:4px; color:${t.color};">${t.name} (${t.year})</h3>
             <div class="popup-row"><span>Dates of Transit:</span><span>${t.dates}</span></div>
-            <div class="popup-row"><span>Peak Sustained Winds:</span><span style="color:#fb7185;">${t.winds}</span></div>
+            <div class="popup-row"><span>Peak Sustained Winds:</span><span style="color:var(--accent-rose);">${t.winds}</span></div>
             <div class="popup-row"><span>Casualties / Fatalities:</span><span>${t.deaths}</span></div>
             <div class="popup-row"><span>Estimated Damage:</span><span>${t.damage}</span></div>
             <div class="popup-desc">
-              <strong style="color:#ffffff;">Eye Track & Impact Path:</strong><br>
+              <strong style="color:var(--text-bright);">Eye Track & Impact Path:</strong><br>
               ${t.pathDesc}
-              <div style="margin-top:6px; font-size:0.64rem; color:#94a3b8; border-top:1px solid rgba(255,255,255,0.08); padding-top:4px;">
-                Source: <a href="https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm" target="_blank" style="color:#38bdf8; text-decoration:none;">Typhoon2000.ph</a>
+              <div style="margin-top:6px; font-size:0.64rem; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:4px;">
+                Source: <a href="https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm" target="_blank" style="color:var(--accent-cyan); text-decoration:none;">Typhoon2000.ph</a>
               </div>
             </div>
           </div>
@@ -3041,7 +2606,7 @@
       });
     }
 
-    // Render Sidebar Cards Strictly in Descending Order of Capacity
+    // Render Sidebar Cards
     function renderSidebarList(facilities) {
       const container = document.getElementById('facilitiesList');
       container.innerHTML = '';
@@ -3055,7 +2620,7 @@
 
       if (facilities.length === 0) {
         container.innerHTML = `
-          <div style="text-align:center; padding: 30px 15px; color:#94a3b8;">
+          <div style="text-align:center; padding: 30px 15px; color:var(--text-muted);">
             <p style="font-size:0.85rem; font-weight:600;">No matching facilities found</p>
             <p style="font-size:0.74rem; margin-top:4px;">Try adjusting your search criteria or category filter.</p>
           </div>
@@ -3083,7 +2648,7 @@
         }).join('');
 
         const moreBadge = item.fuelBreakdown.length > 3 
-          ? `<span class="fuel-chip" style="color:#94a3b8;">+${item.fuelBreakdown.length - 3} more</span>` 
+          ? `<span class="fuel-chip">+${item.fuelBreakdown.length - 3} more</span>` 
           : '';
 
         card.innerHTML = `
@@ -3116,10 +2681,8 @@
       });
     }
 
-    // Synchronisation: Select card -> flyTo marker -> open popup
     function selectFacility(item) {
       highlightSidebarCard(item.rank);
-
       const circle = markerMap.get(item.rank);
       if (circle) {
         map.flyTo([item.lat, item.lng], 10, { duration: 1.2 });
@@ -3136,7 +2699,6 @@
       }
     }
 
-    // Filter and Search Evaluation
     function getFilteredData(forMap = false) {
       return strategicFacilities.filter(item => {
         const matchesCategory = (currentFilter === 'ALL') || (item.type === currentFilter);
@@ -3152,7 +2714,6 @@
           return matchesCategory && matchesSearch;
         }
         const matchesLasso = !selectedLassoIds || selectedLassoIds.has(item.rank);
-
         return matchesCategory && matchesSearch && matchesLasso;
       });
     }
@@ -3164,7 +2725,7 @@
       renderSidebarList(sidebarFiltered);
     }
 
-    // Setup Category Filter Buttons
+    // Category Filter Buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -3174,11 +2735,66 @@
       });
     });
 
-    // Reactive Live Search Input
+    // Live Search Input
     document.getElementById('searchInput').addEventListener('input', (e) => {
       currentSearch = e.target.value.toLowerCase().trim();
       updateView();
     });
+
+    // 1. Dark / Light Theme Toggle (Changes UI + Basemap)
+    btnToggleTheme.addEventListener('click', () => {
+      isLightMode = !isLightMode;
+      document.body.classList.toggle('light-mode', isLightMode);
+
+      if (activeBaseLayer) {
+        map.removeLayer(activeBaseLayer);
+      }
+
+      if (isLightMode) {
+        activeBaseLayer = baseLayers["ESRI Light Gray (Claro)"];
+        activeBaseLayer.addTo(map);
+        btnToggleTheme.innerHTML = '🌙 Dark Mode';
+        showToast('Light mode enabled (ESRI Light Gray basemap)');
+      } else {
+        activeBaseLayer = baseLayers["ESRI Dark Gray (Tema Oscuro)"];
+        activeBaseLayer.addTo(map);
+        btnToggleTheme.innerHTML = '☀️ Light Mode';
+        showToast('Dark mode enabled (ESRI Dark Gray basemap)');
+      }
+
+      renderMapMarkers(getFilteredData(true));
+    });
+
+    // 2. Point Scaling Toggle (Proportional vs Uniform Size)
+    btnToggleScaling.addEventListener('click', () => {
+      scalingEnabled = !scalingEnabled;
+      btnToggleScaling.classList.toggle('active', scalingEnabled);
+      btnToggleScaling.innerHTML = scalingEnabled ? '📏 Scaling: ON' : '⚪ Scaling: OFF';
+
+      const scaleNote = document.getElementById('legendScaleNote');
+      if (scaleNote) {
+        scaleNote.textContent = scalingEnabled
+          ? '1 MB = 158.987 ML. Circle area is proportional to MB capacity.'
+          : 'Uniform circle radius (8 px) active for clear point identification.';
+      }
+
+      renderMapMarkers(getFilteredData(true));
+      showToast(scalingEnabled ? 'Proportional point scaling enabled' : 'Uniform point size enabled');
+    });
+
+    // 3. Sidebar Show / Hide Toggle
+    function toggleSidebar() {
+      const isCollapsed = sidebarPanel.classList.toggle('collapsed');
+      btnToggleSidebar.innerHTML = isCollapsed ? '🗂️ Show Panel' : '🗂️ Hide Panel';
+      btnSidebarEdge.textContent = isCollapsed ? '❮' : '❯';
+
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 310);
+    }
+
+    btnToggleSidebar.addEventListener('click', toggleSidebar);
+    btnSidebarEdge.addEventListener('click', toggleSidebar);
 
     // Toggle Typhoon Tracks Button
     btnToggleTyphoons.addEventListener('click', () => {
@@ -3186,72 +2802,79 @@
       if (typhoonsVisible) {
         map.addLayer(typhoonsLayerGroup);
         btnToggleTyphoons.classList.add('active');
-        btnToggleTyphoons.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A6.007 6.007 0 0 1 6.07 11.9a1 1 0 0 1 1.98-.3A4.008 4.008 0 0 0 11.93 15H12a1 1 0 0 1 1 1.93zm4.93-4.03a1 1 0 0 1-1.98.3A4.008 4.008 0 0 0 12.07 9H12a1 1 0 0 1-1-1.93V7a1 1 0 0 1 2 0v.07a6.007 6.007 0 0 1 4.93 5.03z"/></svg>
-          Historical Typhoons: ON
-        `;
+        btnToggleTyphoons.textContent = '🌀 Typhoons: ON';
         showToast('Typhoon tracks enabled (12 worst historic storms)');
       } else {
         map.removeLayer(typhoonsLayerGroup);
         btnToggleTyphoons.classList.remove('active');
-        btnToggleTyphoons.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A6.007 6.007 0 0 1 6.07 11.9a1 1 0 0 1 1.98-.3A4.008 4.008 0 0 0 11.93 15H12a1 1 0 0 1 1 1.93zm4.93-4.03a1 1 0 0 1-1.98.3A4.008 4.008 0 0 0 12.07 9H12a1 1 0 0 1-1-1.93V7a1 1 0 0 1 2 0v.07a6.007 6.007 0 0 1 4.93 5.03z"/></svg>
-          Historical Typhoons: OFF
-        `;
+        btnToggleTyphoons.textContent = '🌀 Typhoons: OFF';
         showToast('Typhoon tracks hidden');
       }
     });
 
-    // Map Legend Control
+    // 4. Collapsible Map Legend Control
     const legend = L.control({ position: 'topright' });
     legend.onAdd = function() {
       const div = L.DomUtil.create('div', 'map-legend');
+      L.DomEvent.disableClickPropagation(div);
       div.innerHTML = `
-        <div class="legend-title">Facility Classification</div>
-        <div class="legend-item">
-          <div class="legend-left">
-            <span class="legend-circle" style="background:${typeStyles['REFINERY'].color}"></span>
-            <strong>Refinery</strong>
+        <div class="legend-header-row">
+          <div class="legend-title">Facility Classification</div>
+          <button class="legend-toggle-btn" id="btnCollapseLegend" title="Hide or show legend">Hide</button>
+        </div>
+        <div class="legend-body">
+          <div class="legend-item">
+            <div class="legend-left">
+              <span class="legend-circle" style="background:${typeStyles['REFINERY'].color}"></span>
+              <strong>Refinery</strong>
+            </div>
+            <span class="legend-count">1 active</span>
           </div>
-          <span class="legend-count">1 active</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-left">
-            <span class="legend-circle" style="background:${typeStyles['IMPORT TERMINAL'].color}"></span>
-            <strong>Import Terminal</strong>
+          <div class="legend-item">
+            <div class="legend-left">
+              <span class="legend-circle" style="background:${typeStyles['IMPORT TERMINAL'].color}"></span>
+              <strong>Import Terminal</strong>
+            </div>
+            <span class="legend-count">20 hubs</span>
           </div>
-          <span class="legend-count">20 hubs</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-left">
-            <span class="legend-circle" style="background:${typeStyles['DEPOT'].color}"></span>
-            <strong>Secondary Depot</strong>
+          <div class="legend-item">
+            <div class="legend-left">
+              <span class="legend-circle" style="background:${typeStyles['DEPOT'].color}"></span>
+              <strong>Secondary Depot</strong>
+            </div>
+            <span class="legend-count">12 hubs</span>
           </div>
-          <span class="legend-count">12 hubs</span>
-        </div>
-        <hr style="border-color: rgba(255,255,255,0.08); margin: 6px 0;">
-        <div class="legend-title" style="margin-bottom:4px;">Historical Typhoons</div>
-        <div class="legend-item">
-          <div class="legend-left">
-            <span class="legend-line"></span>
-            <strong>12 Worst Typhoons</strong>
+          <hr style="border-color: var(--border-color); margin: 6px 0;">
+          <div class="legend-title" style="margin-bottom:4px;">Historical Typhoons</div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <span class="legend-line"></span>
+              <strong>12 Worst Typhoons</strong>
+            </div>
+            <span class="legend-count">1947–2009</span>
           </div>
-          <span class="legend-count">1947–2009</span>
-        </div>
-        <div class="legend-scale-box">
-          <div class="legend-title" style="margin-bottom:2px;">Basemap & Volumetric Scale</div>
-          <strong>Basemap:</strong> ESRI / OpenStreetMap (No API Key Required)<br>
-          <strong>Primary Unit:</strong> Million Barrels (MB)<br>
-          <strong>Secondary Unit:</strong> Million Litres (ML)<br>
-          <span style="color:#64748b; font-size:0.62rem;">1 MB = 158.987 ML. Circle area is proportional to MB capacity. Toggle basemaps via layer icon at top right.</span>
-        </div>
-        <div class="legend-ref-box">
-          Cyclone tracks: <a href="https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm" target="_blank">Typhoon2000.ph</a>
+          <div class="legend-scale-box">
+            <div class="legend-title" style="margin-bottom:2px;">Volumetric Scale</div>
+            <strong>Primary Unit:</strong> Million Barrels (MB)<br>
+            <strong>Secondary Unit:</strong> Million Litres (ML)<br>
+            <span id="legendScaleNote" style="color:var(--text-dim); font-size:0.62rem;">1 MB = 158.987 ML. Circle area is proportional to MB capacity.</span>
+          </div>
+          <div class="legend-ref-box">
+            Cyclone tracks: <a href="https://www.typhoon2000.ph/stormstats/12WorstPhilippineTyphoons.htm" target="_blank">Typhoon2000.ph</a>
+          </div>
         </div>
       `;
       return div;
     };
     legend.addTo(map);
+
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'btnCollapseLegend') {
+        const legendContainer = e.target.closest('.map-legend');
+        const isCollapsed = legendContainer.classList.toggle('collapsed');
+        e.target.textContent = isCollapsed ? 'Show' : 'Hide';
+      }
+    });
 
     // ==========================================
     // Spatial Lasso Selection Tool (leaflet-lasso)
@@ -3276,17 +2899,11 @@
     function updateLassoButtonState(isActive) {
       if (isActive) {
         btnToggleLasso.classList.add('active');
-        btnToggleLasso.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-          Cancel Lasso
-        `;
+        btnToggleLasso.innerHTML = '❌ Cancel Lasso';
         showToast('Lasso Active: Click and drag on the map to enclose facilities');
       } else {
         btnToggleLasso.classList.remove('active');
-        btnToggleLasso.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4zM14 14h6v6h-6zM4 14h6v6H4zM14 4h6v6h-6z"/></svg>
-          Lasso Selection Tool
-        `;
+        btnToggleLasso.innerHTML = '✏️ Lasso Selection';
       }
     }
 
@@ -3326,7 +2943,6 @@
         return;
       }
 
-      // Calculate Aggregated Metrics
       const selectedRanks = new Set(selectedFacilities.map(f => f.rank));
       selectedLassoIds = selectedRanks;
 
@@ -3336,7 +2952,6 @@
       let countTerminal = 0;
       let countDepot = 0;
 
-      // Cumulative fuel categories dictionary
       const fuelTotals = {
         "Crude Petroleum": { mb: 0, ml: 0, color: "#64748b" },
         "Diesel Fuels": { mb: 0, ml: 0, color: "#38bdf8" },
@@ -3354,7 +2969,6 @@
         else if (f.type === 'IMPORT TERMINAL') countTerminal++;
         else if (f.type === 'DEPOT') countDepot++;
 
-        // Categorise each fuel component (CRUDE checked first to prevent regex substring overlap with petrol/petroleum)
         f.fuelBreakdown.forEach(item => {
           const fn = item.fuel.toLowerCase();
           if (fn.includes('crude')) {
@@ -3385,14 +2999,12 @@
       const percentTop33 = ((sumMB / totalStrategicMB) * 100).toFixed(1);
       const percentNational = ((sumMB / 50.24) * 100).toFixed(1);
 
-      // Populate Floating Analytical Card with MB as Primary Unit
       document.getElementById('lassoSelectedCapMB').innerHTML = `${sumMB.toFixed(2)} <span class="metric-unit">MB</span>`;
-      document.getElementById('lassoSelectedCapML').innerHTML = `${sumML.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ML • <strong style="color:#38bdf8;">${percentTop33}%</strong> of strategic assets (${percentNational}% nat. • ${selectedFacilities.length} hubs)`;
+      document.getElementById('lassoSelectedCapML').innerHTML = `${sumML.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ML • <strong style="color:var(--accent-cyan);">${percentTop33}%</strong> of strategic assets (${percentNational}% nat. • ${selectedFacilities.length} hubs)`;
       document.getElementById('lassoCountRefinery').textContent = countRefinery;
       document.getElementById('lassoCountTerminal').textContent = countTerminal;
       document.getElementById('lassoCountDepot').textContent = countDepot;
 
-      // Populate Regional Cumulative Fuel Breakdown
       const fuelGrid = document.getElementById('lassoFuelGrid');
       fuelGrid.innerHTML = '';
       let activeFuelCount = 0;
@@ -3420,9 +3032,8 @@
       document.getElementById('lassoFuelCount').textContent = `${activeFuelCount} Categories`;
       analyticsCard.style.display = 'block';
 
-      // Update map markers & sidebar list
       updateView();
-      showToast(`Selected ${selectedFacilities.length} facilities • ${sumMB.toFixed(2)} MB (${sumML.toLocaleString('en-AU', { maximumFractionDigits: 0 })} ML)`);
+      showToast(`Selected ${selectedFacilities.length} facilities • ${sumMB.toFixed(2)} MB`);
     }
 
     function resetLassoSelection() {
@@ -3434,38 +3045,6 @@
     btnResetLasso.addEventListener('click', () => {
       resetLassoSelection();
       showToast('Spatial selection cleared — Displaying all strategic assets');
-    });
-
-    // ==========================================
-    // High-Definition PNG Export for PowerPoint
-    // ==========================================
-    const btnExportPPT = document.getElementById('btnExportPPT');
-    btnExportPPT.addEventListener('click', () => {
-      showToast('Rasterising high-definition presentation map...');
-
-      const mapElement = document.getElementById('map-wrapper');
-
-      // html2canvas high-DPI capture
-      html2canvas(mapElement, {
-        useCORS: true,
-        allowTaint: false,
-        scale: 2, // 2x retina sharpness for 16:9 slides
-        backgroundColor: '#080c10',
-        logging: false,
-        ignoreElements: (element) => {
-          // Do not export leaflet zoom controls or draw handles
-          return element.classList.contains('leaflet-control-zoom');
-        }
-      }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'philippines_petroleum_storage_map.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        showToast('Map exported successfully (philippines_petroleum_storage_map.png)');
-      }).catch(err => {
-        console.error('Error exporting presentation map:', err);
-        showToast('Export failed. Please verify network connectivity.');
-      });
     });
 
     // ==========================================
@@ -3500,7 +3079,7 @@
       if (toastTimeout) clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.style.display = 'none';
-      }, 3500);
+      }, 3200);
     }
 
     // Initial View Render
